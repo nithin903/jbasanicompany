@@ -1,0 +1,30 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliatesSection from '../components/sections/AffiliatesSection.astro';
+import { requireHomeBlock } from '../lib/homeBlocks';
+
+const home = await getEntry('marketing', 'home');
+if (!home) {
+	throw new Error('Missing src/content/marketing/home.md');
+}
+
+const affiliatesEntry = await requireHomeBlock('affiliates');
+if (affiliatesEntry.data.kind !== 'affiliates') {
+	throw new Error('Invalid affiliates block');
+}
+const affiliates = affiliatesEntry.data;
+
+const title = `${affiliates.title} — ${home.data.seo.title}`;
+---
+
+<BaseLayout title={title} description={home.data.seo.description}>
+	<main>
+		<AffiliatesSection
+			title={affiliates.title}
+			intro={affiliates.intro}
+			affiliates={affiliates.affiliates ?? []}
+			groups={affiliates.groups ?? []}
+		/>
+	</main>
+</BaseLayout>

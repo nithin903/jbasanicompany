@@ -1,0 +1,362 @@
+---
+import { sitePathname, withBase } from '../lib/withBase';
+
+const pathname = sitePathname(Astro.url.pathname);
+
+interface Props {
+	siteName: string;
+}
+
+const { siteName } = Astro.props;
+
+const solutionsItems = [
+	{ label: 'Real Assets', href: '/real-assets' },
+	{ label: 'Sustainability', href: '/sustainability' },
+	{ label: 'Careers', href: '/careers' },
+];
+
+const solutionsPaths = new Set(solutionsItems.map((i) => i.href));
+
+function navLinkClass(href: string) {
+	const active = href === '/' ? pathname === '/' : pathname === href;
+	if (active) {
+		return 'border-b-2 border-neutral-900 pb-1 text-sm font-normal tracking-wide text-neutral-900 transition-[color,border-color] duration-200';
+	}
+	return 'border-b-2 border-transparent pb-1 text-sm font-normal tracking-wide text-neutral-600 transition-[color,border-color] duration-200 hover:border-neutral-900 hover:text-neutral-900';
+}
+
+function solutionsSubLinkClass(href: string) {
+	const active = pathname === href;
+	if (active) {
+		return 'border-b-2 border-neutral-900 pb-1 text-sm font-normal tracking-wide text-neutral-900 transition-[color,border-color] duration-200';
+	}
+	return 'border-b-2 border-transparent pb-1 text-sm font-normal tracking-wide text-neutral-600 transition-[color,border-color] duration-200 hover:border-neutral-900 hover:text-neutral-900';
+}
+
+const solutionsSectionActive = solutionsPaths.has(pathname);
+---
+
+<header
+	id="site-header"
+	class="fixed inset-x-0 top-0 z-50 border-b border-neutral-200/80 bg-[#f5f5f5]"
+	data-solutions-route={solutionsSectionActive ? 'true' : 'false'}
+>
+	<div class="relative z-30 mx-auto flex h-16 max-w-6xl items-center bg-[#f5f5f5] px-5 sm:px-8 lg:h-17 lg:px-12">
+		<div class="flex min-w-0 flex-1 basis-0 justify-start">
+			<a href={withBase('/')} class="group flex min-w-0 items-center gap-2.5 text-neutral-900 no-underline">
+				
+				<span class="truncate font-display text-base font-semibold tracking-tight sm:text-[1.0625rem]">{siteName}</span>
+			</a>
+		</div>
+
+		<nav class="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-6 xl:gap-8 lg:flex" aria-label="Primary">
+			<a id="home-nav-link" href={withBase('/')} class:list={navLinkClass('/')}>Home</a>
+
+			<div class="relative">
+				<button
+					type="button"
+					id="solutions-menu-btn"
+					class:list={[
+						'inline-flex items-center gap-1 border-b-2 border-transparent pb-1 text-sm font-normal tracking-wide transition-[color,border-color] duration-200',
+						solutionsSectionActive ? 'border-neutral-900 text-neutral-900' : 'text-neutral-600 hover:border-neutral-900 hover:text-neutral-900',
+					]}
+					aria-expanded={solutionsSectionActive ? 'true' : 'false'}
+					aria-haspopup="true"
+					aria-controls="solutions-subnav"
+				>
+					Solutions
+				</button>
+			</div>
+
+			<a href={withBase('/portfolio')} class:list={navLinkClass('/portfolio')}>Portfolio</a>
+			<a href={withBase('/news')} class:list={navLinkClass('/news')}>News</a>
+			<a href={withBase('/team')} class:list={navLinkClass('/team')}>Team</a>
+		</nav>
+
+		<div class="flex flex-1 basis-0 items-center justify-end gap-3">
+			<a
+				href={withBase('/contact')}
+				class="hidden bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800 lg:inline-flex"
+			>
+				Contact us
+			</a>
+			<button
+				type="button"
+				id="nav-toggle"
+				class="inline-flex min-h-11 min-w-11 touch-manipulation items-center justify-center border border-neutral-300 bg-white p-2 text-neutral-900 lg:hidden"
+				aria-label="Open menu"
+				aria-expanded="false"
+				aria-controls="mobile-nav"
+			>
+				<span id="nav-icon-menu" class="block">
+					<svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+						<path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+				</span>
+				<span id="nav-icon-close" class="hidden">
+					<svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+						<path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</span>
+			</button>
+		</div>
+	</div>
+
+	
+	<div
+		id="solutions-subnav-shell"
+		class="solutions-subnav-shell relative z-10 hidden overflow-hidden lg:grid"
+		data-solutions-expanded={solutionsSectionActive ? 'true' : 'false'}
+		data-solutions-scroll-hidden="false"
+	>
+		<div class="min-h-0">
+			<nav
+				id="solutions-subnav"
+				class="flex w-full flex-wrap items-center justify-center gap-x-7 gap-y-2 border-t border-white bg-white px-5 py-3 sm:gap-x-9 lg:px-12"
+				role="navigation"
+				aria-label="Solutions"
+			>
+				{
+					solutionsItems.map(({ label, href }) => (
+						<a href={withBase(href)} class:list={solutionsSubLinkClass(href)}>
+							{label}
+						</a>
+					))
+				}
+			</nav>
+		</div>
+	</div>
+
+	<div
+		id="mobile-nav"
+		class="hidden max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-neutral-200/90 bg-[#f5f5f5] supports-[height:100dvh]:max-h-[calc(100dvh-4rem)] lg:hidden"
+		role="dialog"
+		aria-label="Mobile navigation"
+		aria-modal="true"
+	>
+		<nav class="mx-auto flex max-w-6xl flex-col px-5 py-2 sm:px-8" aria-label="Mobile primary">
+			<a
+				href={withBase('/')}
+				class:list={[
+					'border-b border-neutral-200/90 py-3.5 text-[15px] font-normal text-neutral-900 sm:py-4',
+					pathname === '/' && 'font-medium',
+				]}
+			>
+				Home
+			</a>
+			<a
+				href={withBase('/portfolio')}
+				class:list={[
+					'border-b border-neutral-200/90 py-3.5 text-[15px] font-normal text-neutral-900 sm:py-4',
+					pathname === '/portfolio' && 'font-medium',
+				]}
+			>
+				Portfolio
+			</a>
+			<a
+				href={withBase('/news')}
+				class:list={[
+					'border-b border-neutral-200/90 py-3.5 text-[15px] font-normal text-neutral-900 sm:py-4',
+					pathname === '/news' && 'font-medium',
+				]}
+			>
+				News
+			</a>
+			<a
+				href={withBase('/team')}
+				class:list={[
+					'border-b border-neutral-200/90 py-3.5 text-[15px] font-normal text-neutral-900 sm:py-4',
+					pathname === '/team' && 'font-medium',
+				]}
+			>
+				Team
+			</a>
+			<p class="px-0 pt-3 text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Solutions</p>
+			{
+				solutionsItems.map(({ label, href }) => (
+					<a
+						href={withBase(href)}
+						class:list={[
+							'border-b border-neutral-200/90 py-3 pl-3 text-[15px] text-neutral-800 sm:py-3.5',
+							pathname === href && 'font-medium text-neutral-950',
+						]}
+					>
+						{label}
+					</a>
+				))
+			}
+			<div class="mt-4 flex flex-col gap-2.5 pb-6 pt-2">
+				<a href={withBase('/contact')} class="bg-neutral-900 py-3 text-center text-sm font-medium text-white hover:bg-neutral-800">
+					Contact us
+				</a>
+			</div>
+		</nav>
+	</div>
+</header>
+
+<script is:inline>
+	(function () {
+		const toggle = document.getElementById('nav-toggle');
+		const panel = document.getElementById('mobile-nav');
+		const iconMenu = document.getElementById('nav-icon-menu');
+		const iconClose = document.getElementById('nav-icon-close');
+		const header = document.getElementById('site-header');
+		const homeNavLink = document.getElementById('home-nav-link');
+		const btn = document.getElementById('solutions-menu-btn');
+		const subnav = document.getElementById('solutions-subnav');
+		const subnavShell = document.getElementById('solutions-subnav-shell');
+
+		const routeActive = header && header.getAttribute('data-solutions-route') === 'true';
+		let solutionsForceOpen = false;
+		/** On Real Assets / Portfolio / … pages the strip is shown by default; user can dismiss it with the Solutions button. */
+		let solutionsRouteDismissed = false;
+		let lastLgDesktop = window.matchMedia('(min-width: 1024px)').matches;
+		let lastScrollY = window.scrollY;
+		let solutionsSubnavScrollHidden = false;
+
+		function setSolutionsSubnavScrollHidden(hidden) {
+			if (!subnavShell) return;
+			solutionsSubnavScrollHidden = hidden;
+			subnavShell.dataset.solutionsScrollHidden = hidden ? 'true' : 'false';
+		}
+
+		function isSolutionsExpandedDesktop() {
+			const desktop = window.matchMedia('(min-width: 1024px)').matches;
+			if (!desktop) return false;
+			return routeActive ? !solutionsRouteDismissed : solutionsForceOpen;
+		}
+
+		function syncSolutionsSubnavOnScroll() {
+			const currentY = Math.max(window.scrollY, 0);
+			const delta = currentY - lastScrollY;
+			const scrollingDown = delta > 2;
+			const scrollingUp = delta < -2;
+
+			if (!isSolutionsExpandedDesktop()) {
+				setSolutionsSubnavScrollHidden(false);
+				lastScrollY = currentY;
+				return;
+			}
+
+			if (currentY <= 8) {
+				setSolutionsSubnavScrollHidden(false);
+				lastScrollY = currentY;
+				return;
+			}
+
+			if (scrollingDown) {
+				setSolutionsSubnavScrollHidden(true);
+			} else if (scrollingUp) {
+				setSolutionsSubnavScrollHidden(false);
+			}
+
+			lastScrollY = currentY;
+		}
+
+		function setMobileOpen(open) {
+			if (!toggle || !panel || !iconMenu || !iconClose) return;
+			panel.classList.toggle('hidden', !open);
+			iconMenu.classList.toggle('hidden', open);
+			iconClose.classList.toggle('hidden', !open);
+			toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+			toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+			document.body.classList.toggle('overflow-hidden', open);
+		}
+
+		function syncSolutionsSubnav() {
+			if (!btn || !subnav || !subnavShell) return;
+			const desktop = window.matchMedia('(min-width: 1024px)').matches;
+			const show = routeActive ? !solutionsRouteDismissed : solutionsForceOpen;
+			const expanded = desktop && show;
+			subnavShell.dataset.solutionsExpanded = expanded ? 'true' : 'false';
+			if (desktop && !expanded) subnav.setAttribute('inert', '');
+			else subnav.removeAttribute('inert');
+			btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+			if (homeNavLink && pathname === '/') {
+				homeNavLink.classList.toggle('border-neutral-900', !expanded);
+				homeNavLink.classList.toggle('text-neutral-900', !expanded);
+				homeNavLink.classList.toggle('border-transparent', expanded);
+				homeNavLink.classList.toggle('text-neutral-600', expanded);
+			}
+			if (!expanded) {
+				setSolutionsSubnavScrollHidden(false);
+			}
+		}
+
+		if (toggle && panel && iconMenu && iconClose) {
+			toggle.addEventListener('click', function () {
+				setMobileOpen(panel.classList.contains('hidden'));
+			});
+			panel.querySelectorAll('a').forEach(function (a) {
+				a.addEventListener('click', function () {
+					setMobileOpen(false);
+				});
+			});
+		}
+
+		document.addEventListener('keydown', function (e) {
+			if (e.key !== 'Escape') return;
+			if (toggle && panel && !panel.classList.contains('hidden')) {
+				setMobileOpen(false);
+				toggle.focus();
+			}
+			if (routeActive && !solutionsRouteDismissed) {
+				solutionsRouteDismissed = true;
+				syncSolutionsSubnav();
+				if (btn) btn.focus();
+			} else if (!routeActive && solutionsForceOpen) {
+				solutionsForceOpen = false;
+				syncSolutionsSubnav();
+				if (btn) btn.focus();
+			}
+		});
+
+		window.addEventListener('resize', function () {
+			const lgDesktop = window.matchMedia('(min-width: 1024px)').matches;
+			if (lgDesktop !== lastLgDesktop) {
+				lastLgDesktop = lgDesktop;
+				if (!lgDesktop) {
+					if (toggle && panel && !panel.classList.contains('hidden')) setMobileOpen(false);
+					solutionsForceOpen = false;
+					solutionsRouteDismissed = false;
+				}
+			}
+			syncSolutionsSubnav();
+			lastScrollY = window.scrollY;
+			syncSolutionsSubnavOnScroll();
+		});
+
+		window.addEventListener('scroll', syncSolutionsSubnavOnScroll, { passive: true });
+
+		if (btn && subnav && subnavShell && header) {
+			btn.addEventListener('click', function (e) {
+				e.stopPropagation();
+				if (routeActive) {
+					solutionsRouteDismissed = !solutionsRouteDismissed;
+				} else {
+					solutionsForceOpen = !solutionsForceOpen;
+				}
+				syncSolutionsSubnav();
+			});
+			subnavShell.addEventListener('click', function (e) {
+				e.stopPropagation();
+			});
+			// Do not close the Solutions strip when a sub-link is clicked: collapsing here
+			// runs before navigation and feels like the menu "stole" the click on slow networks.
+			// Full page loads reset state; solution routes still pin the bar open via data-solutions-route.
+			document.addEventListener('click', function () {
+				if (!routeActive && solutionsForceOpen) {
+					solutionsForceOpen = false;
+					syncSolutionsSubnav();
+				} else if (routeActive && !solutionsRouteDismissed) {
+					solutionsRouteDismissed = true;
+					syncSolutionsSubnav();
+				}
+			});
+		}
+
+		syncSolutionsSubnav();
+		syncSolutionsSubnavOnScroll();
+	})();
+</script>
+
