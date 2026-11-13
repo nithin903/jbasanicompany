@@ -3,13 +3,13 @@ doc: real-assets
 seo:
   title: Real Assets — JBasani&Company
   description: >-
-    Education, digital infrastructure, artificial intelligence, and enterprise technology—where
-    adoption is durable, economics are defendable, and execution compounds over time.
-heroHeadline: The built environment for what comes next
+    Education, digital infrastructure, AI capacity, and the technology that runs it—data centres,
+    liquid-cooled GPU hardware, and 24/7 operations, committed one phase at a time.
+heroHeadline: Infrastructure for intelligence
 heroSubline: >-
-  We concentrate capital behind education, data centers and digital infrastructure, AI, and technology
-  companies where product depth, distribution, and governance meet institutional standards—and outcomes
-  are measured in decades, not quarters.
+  We concentrate capital in education and in AI-compute real assets: data centres, dedicated GPU
+  capacity, and the power, cooling, network, and operations stack that keep training and inference
+  in service—built to specification and expanded as demand grows.
 heroImage: /images/real-assets-hero-bg.png
 heroImageAlt: Abstract fiber optic light trails on a deep blue digital background
 pillars:
@@ -22,31 +22,42 @@ pillars:
     image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=82"
     imageAlt: Students collaborating at a modern campus table
   - title: Digital Infrastructure
-    tagline: The backbone of the modern economy.
+    tagline: Data centres built to a specification, then run from ready for service.
     body: >-
-      Data centers, connectivity, and mission-critical digital real estate—capacity, security, and uptime.
-      We partner with operators and developers where power, access, and execution create a durable moat.
+      Real assets here are the halls themselves: site, power, permits, design, and construction for
+      campuses that can scale toward 100 MW. Customers set IT load, rack density, cooling mix, and
+      availability; each phase uses a repeatable design for power, cooling, and data halls, in its
+      own project company. First campus is in development, with further campuses planned across the
+      Middle East and Central Asia. Revenue is structured around multi-year take-or-pay agreements,
+      with capital committed one phase at a time.
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=82"
     imageAlt: Server room with blue-lit racks in a dark data hall
   - title: Artificial Intelligence
-    tagline: Infrastructure for the intelligent enterprise.
+    tagline: Dedicated GPU capacity for training and inference.
     body: >-
-      Applied AI across infrastructure, workflow, and decision systems—where models meet security,
-      latency, and real-world reliability. We partner where technical depth and responsible deployment
-      are non-negotiable.
+      We develop and operate AI capacity—not a generic cloud overlay. Customers reserve dedicated
+      high-density compute for a fixed or multi-year term: racks, clusters, or a campus built to
+      their specification. Hardware, dense power delivery, network, and operation sit with one
+      counterparty. Capacity is commissioned, put into service, then added in measured tranches as
+      utilisation, power, and hardware lead times allow—built for sovereigns, hyperscalers, AI labs,
+      and large enterprises that need dedicated infrastructure without assembling a separate developer,
+      integrator, and operator.
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=82"
     imageAlt: Abstract visualization of neural networks and light trails
   - title: Technology
-    tagline: Enterprise-grade. Built to endure cycles.
+    tagline: Liquid cooling, GPU clusters, and one operations team, 24/7.
     body: >-
-      Software, data, and systems companies with recurring revenue, clear moats, and leadership that
-      invests through volatility. We support M&A, talent, and capital structure—aligned to long-term
-      value, not narrative.
+      The technology layer is what keeps the hall live: liquid-cooled GPU hardware, dense power
+      topology, latency-aware network fabrics, and controls from BMS and EPMS through DCIM. Direct
+      liquid cooling and air cooling are fixed in the basis of design before procurement. On-site
+      staff cover power, coolant loops, compute hardware, network, and security around the clock—one
+      operations team from commissioning through incident response, so the asset is run, not merely
+      owned.
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=82"
     imageAlt: Circuit board macro with cool blue lighting
-closingHeadline: Built for institutions. Structured for permanence.
+closingHeadline: Built to a specification. Operated without a gap.
 closingBody: >-
-  Real assets reward patience, precision, and the discipline to say no. JB&C allocates with scale,
-  operates with standards, and compounds over cycles—without noise and without compromise on what
-  institutional means.
+  Digital real assets compound when power, cooling, compute, and people are under one operating
+  model. JB&C allocates behind that stack—education where outcomes hold, and AI-compute campuses
+  where capacity is reserved, commissioned, and expanded in phases.
 ---
